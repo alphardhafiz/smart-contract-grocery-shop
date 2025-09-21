@@ -14,6 +14,24 @@
 				"inputs": [
 					{
 						"internalType": "enum GroceryShop.GroceryType",
+						"name": "_groceryType",
+						"type": "uint8"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_numberAdded",
+						"type": "uint256"
+					}
+				],
+				"name": "add",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "enum GroceryShop.GroceryType",
 						"name": "",
 						"type": "uint8"
 					}
@@ -118,11 +136,11 @@
 	},
 	"sources": {
 		"contracts/3_Ballot.sol": {
-			"keccak256": "0xfc9e827f515c11d16253637275f3ddfb6837f7f35d930ad9400f875675ab8179",
+			"keccak256": "0xe88b8c6e40b0ffde3b39ec95f359af92a6bea5fdde208e5c7fa45c6dd6dafb45",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://8f2ea6fc4cfa79832bea56107d1e9f628f0fc49aec1a7770bf90e8cce8280d38",
-				"dweb:/ipfs/QmUk9kqZ2u9joDP7MwuFSsGEQLL7B37AmMAuYkzjtYNvDU"
+				"bzz-raw://24b4467210dcf7336f4a6f1c8d9e19dc6901b33a95a90266e0aaa319835fa3e6",
+				"dweb:/ipfs/QmPB1Jx5hsNbJfL22RMCHKzwNVjLP3JwuyYW5VkqhiBeHP"
 			]
 		}
 	},
