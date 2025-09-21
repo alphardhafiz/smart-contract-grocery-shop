@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.18;
-// time 22:11
+// time 29:24
 contract GroceryShop {
     address public owner;
     uint256 public purchaseId; // id counter
 
-    struct Grocery{
+    struct Grocery {
         string name;
         uint256 numberOfItems;
     }
@@ -16,14 +16,14 @@ contract GroceryShop {
         Egg
     }
 
-    struct PurchaceDetail {
+    struct PurchaseDetail {
         address buyer;
         GroceryType itemType;
         uint256 numberOfItemsBought;
     }
 
     mapping(GroceryType => Grocery) public groceryItem;
-    mapping(uint256 => PurchaceDetail) public purchaseReceipt;
+    mapping(uint256 => PurchaseDetail) public purchaseReceipt;
 
     constructor() {
         groceryItem[GroceryType.Bread] = Grocery("Roti", 10);
@@ -41,7 +41,27 @@ contract GroceryShop {
         _;
     }
 
-    function add(GroceryType _groceryType, uint _numberAdded) public onlyOwner numberChecking(_numberAdded) {
+    function add(
+        GroceryType _groceryType,
+        uint _numberAdded
+    ) public onlyOwner numberChecking(_numberAdded) {
         groceryItem[_groceryType].numberOfItems += _numberAdded;
+    }
+
+    function buy(GroceryType _groceryType, uint _numberToBuy) public payable {
+        require(groceryItem[_groceryType].numberOfItems >= _numberToBuy, "Insufficient stock.");
+
+        uint total = _numberToBuy * (0.001 ether);
+        require(msg.value >= total, "Invalid amount");
+
+        purchaseId++;
+        groceryItem[_groceryType].numberOfItems -= _numberToBuy;
+
+        purchaseReceipt[purchaseId] = PurchaseDetail(msg.sender, _groceryType, _numberToBuy);
+    }
+
+    function withdraw() public onlyOwner{
+        (bool success, ) = payable(msg.sender).call{value:address(this).balance}("");
+        require(success, "Failet to withdraw balance");
     }
 }
